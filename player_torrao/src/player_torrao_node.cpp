@@ -143,7 +143,7 @@ namespace rws2016_torrao
              */
             tf::Transform getPose(void)
             {
-                ros::Duration(0.05).sleep(); //To allow the listener to hear messages
+                ros::Duration(0.1).sleep(); //To allow the listener to hear messages
                 tf::StampedTransform st; //The pose of the player
                 try{
                     listener.lookupTransform("/map", name, ros::Time(0), st);
@@ -248,6 +248,16 @@ namespace rws2016_torrao
             boost::shared_ptr<Team> prey_team;
 
             boost::shared_ptr<ros::Subscriber> _sub; 
+            
+            ~MyPlayer()   
+{
+            tf::Transform t;
+            t.setOrigin( tf::Vector3(15, 15, 0.0) );
+            tf::Quaternion q; q.setRPY(0, 0, 0);
+            t.setRotation(q);
+            br.sendTransform(tf::StampedTransform(t, ros::Time::now(), "/map", name));
+            br.sendTransform(tf::StampedTransform(t, ros::Time::now() + ros::Duration(2), "/map", name));
+}
 
             /**
              * @brief Constructor
