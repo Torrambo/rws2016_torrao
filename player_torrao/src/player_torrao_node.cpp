@@ -99,6 +99,35 @@ namespace rws2016_torrao
                 return norm;
 
             }
+            
+            double getDistance(string player_name)
+            {
+                //computing the distance 
+                string first_refframe = name;
+                string second_refframe = player_name;
+
+                ros::Duration(0.01).sleep(); //To allow the listener to hear messages
+                tf::StampedTransform st; //The pose of the player
+                try{
+                    listener.lookupTransform(first_refframe, second_refframe, ros::Time(0), st);
+                }
+                catch (tf::TransformException& ex){
+                    ROS_ERROR("%s",ex.what());
+                    ros::Duration(0.01).sleep();
+                    return 999;
+                }
+
+                tf::Transform t;
+                t.setOrigin(st.getOrigin());
+                t.setRotation(st.getRotation());
+
+                double x = t.getOrigin().x();
+                double y = t.getOrigin().y();
+
+                double norm = sqrt(x*x + y*y);
+                return norm;
+
+            }
 
             double getAngle(string player_name)
             {
@@ -362,7 +391,7 @@ namespace rws2016_torrao
             
             string getNameOfClosestHunter(void)
             {
-                double hunter_dist = getDistance(*hunter_team_team->players[0]);
+                double hunter_dist = getDistance(*hunter_team->players[0]);
                 string hunter_name = hunter_team->players[0]->name;
 
                 for (size_t i = 1; i < hunter_team->players.size(); ++i)
@@ -407,15 +436,12 @@ namespace rws2016_torrao
                 double angle_hunter = getAngle(closest_hunter);
                 double dist_prey= getDistance(closest_prey);
                 double dist_hunter= getDistance(closest_hunter);
-                
+                double angle = angle_prey;
                 if (dist_hunter < dist_prey/2)
                 {
                 	double angle = M_PI + angle_hunter;
                 }
-                else
-                {
-                	double angle = angle_prey;
-                }
+                
                 
 
                 //Step 3
