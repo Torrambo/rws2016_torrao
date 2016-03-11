@@ -437,10 +437,14 @@ namespace rws2016_torrao
                 double dist_prey= getDistance(closest_prey);
                 double dist_hunter= getDistance(closest_hunter);
                 double angle = angle_prey;
+                if (std::abs(angle_hunter-angle_prey)<M_PI/6)
+                {
                 if (dist_hunter < dist_prey/2)
                 {
                 	double angle = M_PI + angle_hunter;
                 }
+                }
+                
                 
                 
 
