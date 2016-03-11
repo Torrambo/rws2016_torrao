@@ -84,7 +84,7 @@ namespace rws2016_torrao
                 }
                 catch (tf::TransformException& ex){
                     ROS_ERROR("%s",ex.what());
-                    ros::Duration(0.01).sleep();
+                    ros::Duration(0.1).sleep();
                     return 999;
                 }
 
@@ -113,7 +113,7 @@ namespace rws2016_torrao
                 }
                 catch (tf::TransformException& ex){
                     ROS_ERROR("%s",ex.what());
-                    ros::Duration(0.01).sleep();
+                    ros::Duration(0.1).sleep();
                     return 999;
                 }
 
@@ -142,7 +142,7 @@ namespace rws2016_torrao
                 }
                 catch (tf::TransformException& ex){
                     ROS_ERROR("%s",ex.what());
-                    ros::Duration(0.01).sleep();
+                    ros::Duration(0.1).sleep();
                     return 0;
                 }
 
@@ -179,7 +179,7 @@ namespace rws2016_torrao
                 }
                 catch (tf::TransformException& ex){
                     ROS_ERROR("%s",ex.what());
-                    ros::Duration(0.01).sleep();
+                    ros::Duration(0.1).sleep();
                 }
 
                 tf::Transform t;
@@ -437,19 +437,19 @@ namespace rws2016_torrao
                 double dist_prey= getDistance(closest_prey);
                 double dist_hunter= getDistance(closest_hunter);
                 double angle = angle_prey;
-                if (std::abs(angle_hunter-angle_prey)<M_PI/6)
+                if (std::abs(angle_hunter-angle_prey)<M_PI/3)
                 {
-                if (dist_hunter < dist_prey/2)
-                {
+                	if (dist_hunter < dist_prey)
+                	{
                 	double angle = M_PI + angle_hunter;
-                }
+                	}
                 }
                 
                 
                 
 
                 //Step 3
-                double displacement = msg.cheetah; //I am a cat, others may choose another animal
+                double displacement = msg.cat; //I am a cat, others may choose another animal
 
                 //Step 4
                 move(displacement, angle);
