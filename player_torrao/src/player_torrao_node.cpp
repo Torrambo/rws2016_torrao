@@ -77,14 +77,14 @@ namespace rws2016_torrao
                 string first_refframe = name;
                 string second_refframe = p.name;
 
-                ros::Duration(0.08).sleep(); //To allow the listener to hear messages
+                ros::Duration(0.01).sleep(); //To allow the listener to hear messages
                 tf::StampedTransform st; //The pose of the player
                 try{
                     listener.lookupTransform(first_refframe, second_refframe, ros::Time(0), st);
                 }
                 catch (tf::TransformException& ex){
                     ROS_ERROR("%s",ex.what());
-                    ros::Duration(0.1).sleep();
+                    ros::Duration(0.01).sleep();
                     return 999;
                 }
 
@@ -106,14 +106,14 @@ namespace rws2016_torrao
                 string first_refframe = name;
                 string second_refframe = player_name;
 
-                ros::Duration(0.08).sleep(); //To allow the listener to hear messages
+                ros::Duration(0.01).sleep(); //To allow the listener to hear messages
                 tf::StampedTransform st; //The pose of the player
                 try{
                     listener.lookupTransform(first_refframe, second_refframe, ros::Time(0), st);
                 }
                 catch (tf::TransformException& ex){
                     ROS_ERROR("%s",ex.what());
-                    ros::Duration(0.1).sleep();
+                    ros::Duration(0.01).sleep();
                     return 0;
                 }
 
@@ -143,14 +143,14 @@ namespace rws2016_torrao
              */
             tf::Transform getPose(void)
             {
-                ros::Duration(0.1).sleep(); //To allow the listener to hear messages
+                ros::Duration(0.01).sleep(); //To allow the listener to hear messages
                 tf::StampedTransform st; //The pose of the player
                 try{
                     listener.lookupTransform("/map", name, ros::Time(0), st);
                 }
                 catch (tf::TransformException& ex){
                     ROS_ERROR("%s",ex.what());
-                    ros::Duration(0.1).sleep();
+                    ros::Duration(0.01).sleep();
                 }
 
                 tf::Transform t;
@@ -359,6 +359,25 @@ namespace rws2016_torrao
 
                 return prey_name;
             }
+            
+            string getNameOfClosestHunter(void)
+            {
+                double hunter_dist = getDistance(*hunter_team_team->players[0]);
+                string hunter_name = hunter_team->players[0]->name;
+
+                for (size_t i = 1; i < hunter_team->players.size(); ++i)
+                {
+                    double d = getDistance(*hunter_team->players[i]);
+
+                    if (d < hunter_dist) //A new minimum
+                    {
+                        hunter_dist = d;
+                        hunter_name = hunter_team->players[i]->name;
+                    }
+                }
+
+                return hunter_name;
+            }
 
 
             /**
@@ -380,9 +399,24 @@ namespace rws2016_torrao
                 //Step 1
                 string closest_prey = getNameOfClosestPrey();
                 ROS_INFO("Closest prey is %s", closest_prey.c_str());
+                string closest_hunter = getNameOfClosestHunter();
+                ROS_INFO("Closest hunter is %s", closest_hunter.c_str());
 
                 //Step 2
-                double angle = getAngle(closest_prey);
+                double angle_prey = getAngle(closest_prey);
+                double angle_hunter = getAngle(closest_hunter);
+                double dist_prey= getDistance(closest_prey);
+                double dist_hunter= getDistance(closest_hunter);
+                
+                if (dist_hunter < dist_prey/2)
+                {
+                	double angle = M_PI + angle_hunter;
+                }
+                else
+                {
+                	double angle = angle_prey;
+                }
+                
 
                 //Step 3
                 double displacement = msg.cheetah; //I am a cat, others may choose another animal
