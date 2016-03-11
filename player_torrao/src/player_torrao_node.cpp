@@ -84,7 +84,7 @@ namespace rws2016_torrao
                 }
                 catch (tf::TransformException& ex){
                     ROS_ERROR("%s",ex.what());
-                    ros::Duration(0.1).sleep();
+                    ros::Duration(0.081).sleep();
                     return 999;
                 }
 
@@ -106,7 +106,7 @@ namespace rws2016_torrao
                 string first_refframe = name;
                 string second_refframe = player_name;
 
-                ros::Duration(0.1).sleep(); //To allow the listener to hear messages
+                ros::Duration(0.061).sleep(); //To allow the listener to hear messages
                 tf::StampedTransform st; //The pose of the player
                 try{
                     listener.lookupTransform(first_refframe, second_refframe, ros::Time(0), st);
@@ -143,7 +143,7 @@ namespace rws2016_torrao
              */
             tf::Transform getPose(void)
             {
-                ros::Duration(0.1).sleep(); //To allow the listener to hear messages
+                ros::Duration(0.071).sleep(); //To allow the listener to hear messages
                 tf::StampedTransform st; //The pose of the player
                 try{
                     listener.lookupTransform("/map", name, ros::Time(0), st);
