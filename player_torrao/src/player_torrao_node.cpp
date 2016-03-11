@@ -437,11 +437,13 @@ namespace rws2016_torrao
                 double dist_prey= getDistance(closest_prey);
                 double dist_hunter= getDistance(closest_hunter);
                 double angle = angle_prey;
+                double displacement = msg.cat;
                 if (std::abs(angle_hunter-angle_prey)<M_PI/3)
                 {
                 	if (dist_hunter < dist_prey)
                 	{
-                	double angle = M_PI + angle_hunter;
+                	angle = M_PI + angle_hunter;
+                	displacement= - displacement;
                 	}
                 }
                 
@@ -449,7 +451,7 @@ namespace rws2016_torrao
                 
 
                 //Step 3
-                double displacement = msg.cat; //I am a cat, others may choose another animal
+                 //I am a cat, others may choose another animal
 
                 //Step 4
                 move(displacement, angle);
