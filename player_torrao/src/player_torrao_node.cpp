@@ -442,7 +442,7 @@ namespace rws2016_torrao
                 double dist_prey= getDistance(closest_prey);
                 double dist_hunter= getDistance(closest_hunter);
                 double angle = angle_prey;
-                double displacement = msg.cheetah;
+                double displacement = msg.cat;
                 
                 	if (dist_hunter < dist_prey && dist_hunter<0.5)
                 	{
