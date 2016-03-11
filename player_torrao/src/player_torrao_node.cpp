@@ -402,7 +402,7 @@ int main(int argc, char** argv)
     ros::NodeHandle node;
 
     //Creating an instance of class MyPlayer
-    rws2016_torrao::MyPlayer my_player("torrao", "red");
+    rws2016_torrao::MyPlayer my_player("torrao", "blue");
 
     //Infinite loop
     ros::spin();
