@@ -375,7 +375,7 @@ namespace rws2016_torrao
                 double angle = getAngle(closest_prey);
 
                 //Step 3
-                double displacement = msg.cat; //I am a cat, others may choose another animal
+                double displacement = msg.cheetah; //I am a cat, others may choose another animal
 
                 //Step 4
                 move(displacement, angle);
