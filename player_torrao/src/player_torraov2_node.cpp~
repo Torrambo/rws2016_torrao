@@ -15,7 +15,7 @@ namespace rws2016_torrao
 
             //Constructor with the same name as the class
             Player(string name) {this->name = name;}
-            Player(string name, string team) {this->name = name;setTeamName(team);}
+            Player(string name, string team) {this->name = name;setTeamName(team)}
 
             int setTeamName(int team_index = 0 /*default value*/)
             {

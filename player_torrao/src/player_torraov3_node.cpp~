@@ -5,7 +5,7 @@
 #include <ros/ros.h>
 #include <tf/transform_listener.h>
 #include <tf/transform_broadcaster.h>
-
+//#include <tf/transform_broadcaster.h>
 
 #include <rws2016_libs/team_info.h>
 #include <rws2016_msgs/GameMove.h>
@@ -15,7 +15,7 @@ using namespace std;
 /**
  * @brief The namespace of my player
  */
-namespace rws2016_torrao
+namespace rws2016_moliveira
 {
 
 
@@ -137,7 +137,7 @@ namespace rws2016_torrao
             /**
              * @brief Gets the pose (calls updatePose first)
              *
-             * @return the transform from map to the /torrao local reference frame
+             * @return the transform from map to the /moliveira local reference frame
              */
             tf::Transform getPose(void)
             {
@@ -379,7 +379,7 @@ namespace rws2016_torrao
     };
 
 
-} //end of namespace rws2016_torrao
+} //end of namespace rws2016_moliveira
 
 /**
  * @brief The main function
@@ -392,11 +392,11 @@ namespace rws2016_torrao
 int main(int argc, char** argv)
 {
     //initialize ROS stuff
-    ros::init(argc, argv, "torrao");
+    ros::init(argc, argv, "moliveira");
     ros::NodeHandle node;
 
     //Creating an instance of class MyPlayer
-    rws2016_torrao::MyPlayer my_player("torrao", "red");
+    rws2016_moliveira::MyPlayer my_player("moliveira", "red");
 
     //Infinite loop
     ros::spin();
