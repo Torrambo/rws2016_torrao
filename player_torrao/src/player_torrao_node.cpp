@@ -84,7 +84,8 @@ namespace rws2016_torrao
                 }
                 catch (tf::TransformException& ex){
                     ROS_ERROR("%s",ex.what());
-                    ros::Duration(1.0).sleep();
+                    ros::Duration(0.1).sleep();
+                    return 999;
                 }
 
                 tf::Transform t;
@@ -112,7 +113,8 @@ namespace rws2016_torrao
                 }
                 catch (tf::TransformException& ex){
                     ROS_ERROR("%s",ex.what());
-                    ros::Duration(1.0).sleep();
+                    ros::Duration(0.1).sleep();
+                    return 0;
                 }
 
                 tf::Transform t;
@@ -301,6 +303,7 @@ namespace rws2016_torrao
              */
             void move(double displacement, double turn_angle)
             {
+                displacement++;
                 //Put arguments withing authorized boundaries
                 double max_d =  2; 
                 displacement = (displacement > max_d ? max_d : displacement);
