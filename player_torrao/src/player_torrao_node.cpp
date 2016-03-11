@@ -276,7 +276,10 @@ namespace rws2016_torrao
             //Initialize position according to team
             ros::Duration(0.5).sleep(); //sleep to make sure the time is correct
             tf::Transform t;
-            srand((unsigned)time(NULL)); // To start the player in a random location
+            //srand((unsigned)time(NULL)); // To start the player in a random location
+            struct timeval t1;      
+            gettimeofday(&t1, NULL);
+       	    srand(t1.tv_usec);
             double X=((((double)rand()/(double)RAND_MAX) ) * 2 -1) * 5 ;
             double Y=((((double)rand()/(double)RAND_MAX) ) * 2 -1) * 5 ;
             t.setOrigin( tf::Vector3(X, Y, 0.0) );
@@ -299,7 +302,7 @@ namespace rws2016_torrao
             void move(double displacement, double turn_angle)
             {
                 //Put arguments withing authorized boundaries
-                double max_d =  1; 
+                double max_d =  2; 
                 displacement = (displacement > max_d ? max_d : displacement);
 
                 double min_d =  -0.1; 
