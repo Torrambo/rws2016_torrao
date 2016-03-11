@@ -379,10 +379,12 @@ namespace rws2016_torrao
                 {
                     double d = getDistance(*prey_team->players[i]);
 
+			//if (d<0.75)
                     if (d < prey_dist) //A new minimum
                     {
                         prey_dist = d;
                         prey_name = prey_team->players[i]->name;
+                        //return prey_name;
                     }
                 }
 
@@ -398,10 +400,13 @@ namespace rws2016_torrao
                 {
                     double d = getDistance(*hunter_team->players[i]);
 
+                    
                     if (d < hunter_dist) //A new minimum
+                    if (d<0.5)
                     {
                         hunter_dist = d;
                         hunter_name = hunter_team->players[i]->name;
+                        //return hunter_name;
                     }
                 }
 
@@ -439,7 +444,7 @@ namespace rws2016_torrao
                 double angle = angle_prey;
                 double displacement = msg.cheetah;
                 
-                	if (dist_hunter < dist_prey)
+                	if (dist_hunter < dist_prey && dist_hunter<0.5)
                 	{
                 	if (std::abs(angle_hunter-angle_prey)<M_PI/3)
                 {
