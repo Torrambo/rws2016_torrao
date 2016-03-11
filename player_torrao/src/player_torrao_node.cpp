@@ -437,13 +437,14 @@ namespace rws2016_torrao
                 double dist_prey= getDistance(closest_prey);
                 double dist_hunter= getDistance(closest_hunter);
                 double angle = angle_prey;
-                double displacement = msg.cat;
-                if (std::abs(angle_hunter-angle_prey)<M_PI/3)
-                {
+                double displacement = msg.cheetah;
+                
                 	if (dist_hunter < dist_prey)
                 	{
+                	if (std::abs(angle_hunter-angle_prey)<M_PI/3)
+                {
                 	angle = M_PI + angle_hunter;
-                	displacement= - displacement;
+                	//displacement= - displacement;
                 	}
                 }
                 
